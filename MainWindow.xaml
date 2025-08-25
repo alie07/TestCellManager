@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Button Content="Connect TO SMOM" HorizontalAlignment="Left" Margin="130,114,0,0" VerticalAlignment="Top" Width="190" Click="Button_Click"/>
 
     </Grid>
 </Window>

@@ -6,7 +6,23 @@ using System.Threading.Tasks;
 
 namespace TestCellManager.Executives.InterfaceServices
 {
-    internal class TesterEventInterfaceObj
+    public class TesterEventInterfaceObj : TCMComponentClass
     {
+        public TesterEventInterfaceObj() : base(OBJECTNAME.TESTER_EVENT_INTERFACE.ToString())
+        {
+
+        }
+
+        //================================================================================
+        //                              DERIVED FUNCTIONS
+        //--------------------------------------------------------------------------------
+
+        //================================================================================
+        //                              PRIVATE FUNCTIONS
+        //--------------------------------------------------------------------------------
+
+        //================================================================================
+        //                              PUBLIC FUNCTIONS
+        //--------------------------------------------------------------------------------
     }
 }

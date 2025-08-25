@@ -18,5 +18,13 @@ namespace TestCellManager.AlarmHandler
         {
             //TODO: Alarm Storage / Alarm Prompt
         }
+
+        public void AddReceiveMessage(OBJECTNAME eObjName, string strMessage)
+        {
+            string _mssg = string.Format("{0} {1} [RECEIVED] : {2}", DateTime.UtcNow.ToString(), eObjName.ToString(), strMessage);
+            //TODO: Log storage and Display
+        }
     }
+
+
 }

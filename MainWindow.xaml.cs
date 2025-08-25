@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TestCellManager.Executives;
 
 namespace TestCellManager
 {
@@ -19,6 +20,12 @@ namespace TestCellManager
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            TCMSystem.m_msgHandler.AssertPostMessage(MessageID.TM_SYS_INITILIZE, IntPtr.Zero, IntPtr.Zero);
+            //TCMSystem.m_msgHandler.OnInitializeShutdown();
         }
     }
 }

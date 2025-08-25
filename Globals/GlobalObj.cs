@@ -14,7 +14,9 @@ namespace TestCellManager
         TCM_EXEC,
         TCM_MESSAGE_OBJECT,
         TCM_ALARM_OBJECT,
-        EAI_MODULE
+        EAI_MODULE,
+        TESTER_EVENT_INTERFACE,
+        PROBER_EQUIPMENT_INTERFACE
     }
 
 
@@ -28,6 +30,7 @@ namespace TestCellManager
         TM_SYS_MSGLOG,
         TM_SYS_ALARM,
         TM_SYS_TRACE,
+        TM_SYS_INITILIZE,//<= [CONSIDERATION]THIS IS NOT DOCUMENTED, SHOULD BE ADD THIS??
 
         //=============================
         //  TESTER EQPT MESSAGE
