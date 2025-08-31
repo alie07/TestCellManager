@@ -42,5 +42,11 @@ namespace TestCellManager
         {
             TCMSystem.m_msgHandler.AssertPostMessage(MessageID.TM_SYS_STOP_SVC, IntPtr.Zero, IntPtr.Zero);
         }
+
+        private void btnSHowDiag_Click(object sender, RoutedEventArgs e)
+        {
+
+            pnl.Children.Add(TCMSystem.m_tcm_exec.m_tester_event_interface.View);
+        }
     }
 }

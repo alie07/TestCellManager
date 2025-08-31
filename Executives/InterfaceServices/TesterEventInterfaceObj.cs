@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestCellManager.Views;
 
 namespace TestCellManager.SystemTCM.Exec
 {
@@ -18,6 +19,8 @@ namespace TestCellManager.SystemTCM.Exec
             OnRegisterMessage(OBJECTNAME.TESTER_EVENT_INTERFACE, MessageID.TM_SYS_INITILIZE, OnInitialize);
             OnRegisterMessage(OBJECTNAME.TESTER_EVENT_INTERFACE, MessageID.TM_SYS_START_SVC, OnStartService);
             OnRegisterMessage(OBJECTNAME.TESTER_EVENT_INTERFACE, MessageID.TM_SYS_STOP_SVC, OnStopService);
+            InitializeView();
+
         }
 
         //================================================================================
@@ -44,18 +47,22 @@ namespace TestCellManager.SystemTCM.Exec
 
         protected override void OnInitialize()
         {
+            _view?.LogInboundMessage("OnInitialize called");
             base.OnInitialize();
         }
         protected override void OnShutdown()
         {
+            _view?.LogInboundMessage("OnShutdown called");
             base.OnShutdown();
         }
         protected override void OnStartService()
         {
+            _view?.LogInboundMessage("OnStartService called");
             base.OnStartService();
         }
         protected override void OnStopService()
         {
+            _view?.LogInboundMessage("OnStopService called");
             base.OnStopService();
         }
 
@@ -87,5 +94,19 @@ namespace TestCellManager.SystemTCM.Exec
             }
             #endregion
         }
+
+
+        private TesterEventInterfaceView _view;
+        public TesterEventInterfaceView View => _view;
+
+        private void InitializeView()
+        {
+            // Create view on UI thread
+            System.Windows.Application.Current?.Dispatcher.Invoke(() =>
+            {
+                _view = new TesterEventInterfaceView();
+            });
+        }
+
     }
 }

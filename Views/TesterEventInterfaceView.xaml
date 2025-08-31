@@ -1,0 +1,104 @@
+﻿<UserControl x:Class="TestCellManager.Views.TesterEventInterfaceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Height="215" Width="415">
+
+    <UserControl.Resources>
+        <!-- Style for inbound messages (white text) -->
+        <Style x:Key="InboundMessageStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="DarkBlue"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Margin" Value="5,2"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+
+        <!-- Style for outbound messages (yellow text) -->
+        <Style x:Key="OutboundMessageStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Yellow"/>
+            <Setter Property="Background" Value="DarkGreen"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Margin" Value="5,2"/>
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+
+        <!-- DataTemplate for message items -->
+        <DataTemplate x:Key="MessageTemplate">
+            <Border CornerRadius="3" Margin="2">
+                <TextBlock Text="{Binding DisplayText}" 
+                          Style="{Binding MessageStyle}"/>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="DarkGray" Padding="10,5">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Tester Event Interface" 
+                          FontWeight="Bold" 
+                          FontSize="16" 
+                          Foreground="White"/>
+                <TextBlock Text="{Binding Status}" 
+                          Margin="20,0,0,0" 
+                          Foreground="LightGray"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Message Log Area -->
+        <Border Grid.Row="1" Background="Black" BorderBrush="Gray" BorderThickness="1">
+            <ScrollViewer x:Name="MessageScrollViewer" 
+                         VerticalScrollBarVisibility="Auto"
+                         HorizontalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding Messages}" 
+                             ItemTemplate="{StaticResource MessageTemplate}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+
+        <!-- Status Bar -->
+        <Border Grid.Row="2" Background="Gray" Padding="10,3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <TextBlock Text="Messages: " Foreground="White" FontSize="11"/>
+                    <TextBlock Text="{Binding MessageCount}" Foreground="White" FontSize="11"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="20,0">
+                    <Ellipse Width="10" Height="10" Fill="White" Margin="0,0,5,0"/>
+                    <TextBlock Text="Inbound" Foreground="White" FontSize="11" Margin="0,0,15,0"/>
+                    <Ellipse Width="10" Height="10" Fill="Yellow" Margin="0,0,5,0"/>
+                    <TextBlock Text="Outbound" Foreground="White" FontSize="11"/>
+                </StackPanel>
+
+                <Button Grid.Column="2" Content="Clear Log" 
+                       Command="{Binding ClearLogCommand}"
+                       Width="80" Height="25"
+                       Background="DarkRed" 
+                       Foreground="White"
+                       BorderBrush="Red"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
