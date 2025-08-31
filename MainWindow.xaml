@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="Connect TO SMOM" HorizontalAlignment="Left" Margin="130,114,0,0" VerticalAlignment="Top" Width="190" Click="Button_Click"/>
+        <Button Content="Start Service" HorizontalAlignment="Left" Margin="35,64,0,0" VerticalAlignment="Top" Width="190" Click="btnStartSvc_Click"/>
+        <Button Content="Initialize" HorizontalAlignment="Left" Margin="35,24,0,0" VerticalAlignment="Top" Width="190" Click="btnInitialize_Click"/>
+        <Button Content="Stop Service" HorizontalAlignment="Left" Margin="35,104,0,0" VerticalAlignment="Top" Width="190" Click="btnStopSvc_Click"/>
 
     </Grid>
 </Window>

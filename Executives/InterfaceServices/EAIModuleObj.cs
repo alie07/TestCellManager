@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestCellManager;
 
-namespace TestCellManager.Executives
+namespace TestCellManager.SystemTCM.Exec
 {
     /// <summary>
     /// Represents a module for handling EAI Messages / SMOM Server
@@ -37,17 +37,18 @@ namespace TestCellManager.Executives
         //                              DERIVED FUNCTIONS
         //--------------------------------------------------------------------------------
         #region <Derived Functions>
-        protected override nint WindowProc(nint hWnd, uint msg, nint wParam, nint lParam)
+        protected override nint WindowProc(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
+            bool isHandled = true;
             switch (msg)
             {
-                case (uint)MessageID.TM_SYS_INITILIZE:
-                    On_Initialize_Shutdown();
+                case (int)MessageID.TM_SYS_INITILIZE:
+                    base.OnInitialize();
                     break;
                 default:
                     break;
             }
-            return base.WindowProc(hWnd, msg, wParam, lParam);
+            return base.WindowProc(hWnd, msg, wParam, lParam, ref isHandled);
         }
 
         #endregion
@@ -96,11 +97,11 @@ namespace TestCellManager.Executives
                     if (result.MessageType == WebSocketMessageType.Text)
                     {
                         string message = Encoding.UTF8.GetString(data, 0, result.Count);
-                        Dispatcher.Invoke(() => TCMSystem.m_alarmObj.AddReceiveMessage(OBJECTNAME.EAI_MODULE, message));
+                        //Dispatcher.Invoke(() => TCMSystem.m_alarmObj.AddReceiveMessage(OBJECTNAME.EAI_MODULE, message));
                     }
                     else if (result.MessageType == WebSocketMessageType.Close)
                     {
-                        Dispatcher.Invoke(() => TCMSystem.m_alarmObj.AddReceiveMessage(OBJECTNAME.EAI_MODULE, "[SYSTEM] Server closed the connection"));
+                        //Dispatcher.Invoke(() => TCMSystem.m_alarmObj.AddReceiveMessage(OBJECTNAME.EAI_MODULE, "[SYSTEM] Server closed the connection"));
                         //TODO: Fire alarm here
                     }
                 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestCellManager.Executives.Production
+namespace TestCellManager.SystemTCM.Exec
 {
     internal class LotSetManagement
     {

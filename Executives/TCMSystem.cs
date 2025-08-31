@@ -3,22 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestCellManager.AlarmHandler;
-using TestCellManager.MessageHandler;
+using TestCellManager.SystemTCM.AlarmHandler;
+using TestCellManager.SystemTCM.MessageHandler;
+using TestCellManager.SystemTCM;
 
-namespace TestCellManager.Executives
+namespace TestCellManager
 {
     class TCMSystem : TCMComponentClass
     {
         static TCMSystem _instance;
-        public static Exec m_tcm_exec;
-        public static MessageObj m_msgHandler;
+        public static ExecutiveObj m_tcm_exec;
+        public static MessageDispatchCtrl m_msgHandler;
         public static AlarmObj m_alarmObj;
         private static readonly object _lock = new object();
 
         private TCMSystem() : base(OBJECTNAME.TCM_SYSTEM.ToString()) {
-            m_msgHandler = new MessageObj();
-            m_tcm_exec = new Exec();
+            m_msgHandler = new MessageDispatchCtrl();
+            m_tcm_exec = new ExecutiveObj();
             m_alarmObj = new AlarmObj();
         }
 

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestCellManager;
 
-namespace TestCellManager.AlarmHandler
+namespace TestCellManager.SystemTCM.AlarmHandler
 {
     public class AlarmObj : TCMComponentClass
     {

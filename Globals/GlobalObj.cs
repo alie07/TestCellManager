@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace TestCellManager
 {
-    
 
     public enum OBJECTNAME
     {
@@ -16,7 +15,9 @@ namespace TestCellManager
         TCM_ALARM_OBJECT,
         EAI_MODULE,
         TESTER_EVENT_INTERFACE,
-        PROBER_EQUIPMENT_INTERFACE
+        PROBER_EQUIPMENT_INTERFACE,
+        TEST_DATA_RECORD_SVC,
+        WAFER_MAP_DATA_SVC
     }
 
 
@@ -30,7 +31,9 @@ namespace TestCellManager
         TM_SYS_MSGLOG,
         TM_SYS_ALARM,
         TM_SYS_TRACE,
-        TM_SYS_INITILIZE,//<= [CONSIDERATION]THIS IS NOT DOCUMENTED, SHOULD BE ADD THIS??
+        TM_SYS_INITILIZE,//<= [CONSIDERATION]THIS IS NOT DOCUMENTED, SHOULD WE ADD THIS??
+        TM_SYS_START_SVC,
+        TM_SYS_STOP_SVC,
 
         //=============================
         //  TESTER EQPT MESSAGE

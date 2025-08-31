@@ -4,35 +4,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestCellManager.Executives.InterfaceServices
+namespace TestCellManager.SystemTCM.Exec
 {
     public class ProberEquipmentInterfaceObj : TCMComponentClass
     {
+        
         public ProberEquipmentInterfaceObj() : base(OBJECTNAME.PROBER_EQUIPMENT_INTERFACE.ToString())
         {
-            TCMSystem.m_msgHandler.RegisterMessage(OBJECTNAME.PROBER_EQUIPMENT_INTERFACE, MessageID.TM_SYS_INITILIZE);
+            OnRegisterMessage(OBJECTNAME.PROBER_EQUIPMENT_INTERFACE, MessageID.TM_SYS_INITILIZE, OnInitialize);
+            OnRegisterMessage(OBJECTNAME.PROBER_EQUIPMENT_INTERFACE, MessageID.TM_SYS_START_SVC, OnStartService);
+            OnRegisterMessage(OBJECTNAME.PROBER_EQUIPMENT_INTERFACE, MessageID.TM_SYS_STOP_SVC, OnStopService);
         }
         //================================================================================
         //                              DERIVED FUNCTIONS
         //--------------------------------------------------------------------------------
         #region <Derived Functions>
-        protected override nint WindowProc(nint hWnd, uint msg, nint wParam, nint lParam)
+        protected override nint WindowProc(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
-            switch (msg)
+            bool isHandled = true;
+            foreach (var item in m_mssg_id)
             {
-                case (uint)MessageID.TM_SYS_INITILIZE:
-                    OnInitializeShutdown();
-                    break;
-                default:
-                    break;
+                if ((int)item.Key == msg)
+                {
+                    item.Value.Invoke();
+                }
             }
-            return base.WindowProc(hWnd, msg, wParam, lParam);
+            return base.WindowProc(hWnd, msg, wParam, lParam, ref isHandled);
         }
 
-        protected override void OnInitializeShutdown()
+        protected override void OnInitialize()
         {
             // This method can be overridden to handle initialization or shutdown logic.
-            base.OnInitializeShutdown();
+            base.OnInitialize();
         }
 
 
