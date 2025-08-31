@@ -45,8 +45,35 @@ namespace TestCellManager
 
         private void btnSHowDiag_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                var view = TCMSystem.m_tcm_exec.m_tester_event_interface.View;
 
-            pnl.Children.Add(TCMSystem.m_tcm_exec.m_tester_event_interface.View);
+                if (view == null)
+                {
+                    MessageBox.Show("View is null!");
+                    return;
+                }
+
+                // Clear existing children
+                pnl.Children.Clear();
+
+                // Add the view
+                pnl.Children.Add(view);
+
+                // Test logging a message
+                view.LogInboundMessage("Dialog shown - test message");
+
+                // Debug: Check what's in the ViewModel
+                var messageCount = view.ViewModel.MessageCount;
+                var messages = string.Join("\n", view.ViewModel.Messages.Select(m => m.DisplayText));
+
+                MessageBox.Show($"View added successfully.\nMessage count: {messageCount}\nMessages:\n{messages}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error showing dialog: {ex.Message}");
+            }
         }
     }
 }

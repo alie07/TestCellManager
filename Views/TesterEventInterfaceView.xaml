@@ -26,11 +26,25 @@
             <Setter Property="FontSize" Value="12"/>
         </Style>
 
-        <!-- DataTemplate for message items -->
+        <!-- DataTemplate for message items - Fixed to avoid the MessageStyle binding issue -->
         <DataTemplate x:Key="MessageTemplate">
             <Border CornerRadius="3" Margin="2">
-                <TextBlock Text="{Binding DisplayText}" 
-                          Style="{Binding MessageStyle}"/>
+                <TextBlock Text="{Binding DisplayText}">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource InboundMessageStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Direction}" Value="Outbound">
+                                    <Setter Property="Foreground" Value="Yellow"/>
+                                    <Setter Property="Background" Value="DarkGreen"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Direction}" Value="Inbound">
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="Background" Value="DarkBlue"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
             </Border>
         </DataTemplate>
     </UserControl.Resources>

@@ -52,7 +52,12 @@ namespace TestCellManager.SystemTCM.Exec
         }
         protected override void OnShutdown()
         {
-            _view?.LogInboundMessage("OnShutdown called");
+
+            System.Windows.Application.Current?.Dispatcher.Invoke(() =>
+            {
+                _view?.LogInboundMessage("OnInitialize called");
+                _view?.UpdateStatus("Initialized");
+            });
             base.OnShutdown();
         }
         protected override void OnStartService()
@@ -90,22 +95,46 @@ namespace TestCellManager.SystemTCM.Exec
                 {
                     m_mssg = value;
                     OnPropertyChanged();
+
+                    // Log message changes to the view
+                    System.Windows.Application.Current?.Dispatcher.Invoke(() =>
+                    {
+                        _view?.LogOutboundMessage($"MSSG property changed to: {value}");
+                    });
                 }
             }
-            #endregion
         }
+        #endregion
 
 
         private TesterEventInterfaceView _view;
         public TesterEventInterfaceView View => _view;
-
         private void InitializeView()
         {
-            // Create view on UI thread
-            System.Windows.Application.Current?.Dispatcher.Invoke(() =>
+            try
             {
-                _view = new TesterEventInterfaceView();
-            });
+                Dispatcher.Invoke(() =>
+                {
+                    _view = new TesterEventInterfaceView();
+                });
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Failed to initialize view: {ex.Message}");
+            }
+        }
+
+
+        // And update LogSafeMessage:
+        public void LogSafeMessage(string message, bool isOutbound)
+        {
+            if (_view != null)
+            {
+                if (isOutbound)
+                    _view.LogOutboundMessage(message);
+                else
+                    _view.LogInboundMessage(message);
+            }
         }
 
     }
