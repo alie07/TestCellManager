@@ -11,7 +11,7 @@ namespace TestCellManager.SystemTCM.Exec
     {
         MessageID[] m_message_ids;
 
-       //LotSetType MyLOtSet;
+        //LotSetType MyLOtSet;
 
         public TesterEventInterfaceObj() : base(OBJECTNAME.TESTER_EVENT_INTERFACE.ToString())
         {
@@ -67,5 +67,25 @@ namespace TestCellManager.SystemTCM.Exec
         //================================================================================
         //                              PUBLIC FUNCTIONS
         //--------------------------------------------------------------------------------
+
+
+        //================================================================================
+        //                              DERIVED FUNCTIONS
+        //--------------------------------------------------------------------------------
+        #region <MODEL>
+        private string m_mssg;
+        public string MSSG
+        {
+            get => m_mssg;
+            set
+            {
+                if (m_mssg != value)
+                {
+                    m_mssg = value;
+                    OnPropertyChanged();
+                }
+            }
+            #endregion
+        }
     }
 }

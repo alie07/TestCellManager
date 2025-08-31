@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +14,7 @@ using System.Xml.Linq;
 
 namespace TestCellManager
 {
-    public class TCMComponentClass : Window
+    public class TCMComponentClass : Window, INotifyPropertyChanged
     {
 
         private HwndSource m_hwnd_source;
@@ -165,7 +167,19 @@ namespace TestCellManager
         //                              PUBLIC FUNCTIONS
         //--------------------------------------------------------------------------------
         #region <Public Functions>
-    }
+        #endregion
+
+        //================================================================================
+        //                              INOTIFYPROPERTYCHANGED IMPLEMENTATION
+        //--------------------------------------------------------------------------------
+        #region <INotifyPropertyChanged>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         #endregion
     }
+}
 
